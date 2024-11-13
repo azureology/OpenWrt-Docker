@@ -118,13 +118,12 @@ jobs:
           cd $GITHUB_WORKSPACE
           rm -rf openwrt-imagebuilder*
             
-      - name: Build & Save Image
+      - name: Build Docker Image
         run: |
           docker build . -t miniwrt:latest
-          docker save -o openwrt.tar miniwrt:latest
 
       - name: Upload Image
-        uses: actions/upload-artifact@v3
+        uses: ishworkh/docker-image-artifact-upload@v2.0.1
         with:
-          name: miniwrt.tar
-          path: miniwrt.tar 
+          image: "miniwrt:latest"
+          retention_days: "3"
